@@ -7,7 +7,7 @@ class ProxyView(APIView):
     def post(self, request):
         
         # convert request.data to json
-        entry = json.loads(request.data)
+        entry = json.loads(request.body)
         phone_number = entry['changes'][0]['value']['metadata']['display_phone_number']
         message_body = entry['changes'][0]['value']['messages'][0]['text']['body']
         message_type = entry['changes'][0]['value']['messages'][0]['type']
