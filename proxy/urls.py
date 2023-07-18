@@ -19,6 +19,6 @@ from django.urls import path
 from proxy.views import ProxyView
 
 urlpatterns = [
-    path('index/', ProxyView.as_view()),
+    path('index', ProxyView.as_view()),
     path('admin/', admin.site.urls),
 ]
