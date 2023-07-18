@@ -15,12 +15,15 @@ class ProxyView(APIView):
             phone_number = entry['entry'][0]['changes'][0]['value']['contacts'][0]['wa_id']
             
             message_body = entry['entry'][0]['changes'][0]['value']['messages'][0]['text']['body']
+            print(f'phone_number: {phone_number}')
+            print(f'phone_number: {name}')
+            print(f'message_body: {message_body}')
+            print(f'message_type: {message_type}')
         
-
-        print(f'phone_number: {phone_number}')
-        print(f'phone_number: {name}')
-        print(f'message_body: {message_body}')
-        print(f'message_type: {message_type}')
+        if message_type == 'image':
+            image = entry['entry'][0]['changes'][0]['value']['messages'][0]['image']
+            print(image)
+        
         
         
         return Response({'hello': 'world'})
