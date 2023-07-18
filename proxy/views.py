@@ -14,6 +14,6 @@ class ProxyView(APIView):
         # print(f'phone_number: {phone_number}')
         # print(f'message_body: {message_body}')
         # print(f'message_type: {message_type}')
-        print(f'entry: {entry}')
+        print(entry['entry']['changes'][0]['value'])
         
         return Response({'hello': 'world'})
