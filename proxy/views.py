@@ -65,5 +65,12 @@ def get_media_url(media_id):
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
-
+    # response to json 
+    if response.status_code == 200:
+        response = response.json()
+        print(response['url'])
+    else:
+        return None
+    response = response.json()
+    
     print(response.text)
