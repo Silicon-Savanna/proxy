@@ -40,5 +40,5 @@ def get_media_url(media_id):
     
     response = requests.request("GET", url, headers=headers, data=payload)
 
-    print(response)
+    print(response.content)
     # print(json.loads(response))
