@@ -27,7 +27,13 @@ class ProxyView(APIView):
             message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0][
                 "image"
             ]["id"]
-            get_media_url(message_body)
+            image_url = get_media_url(message_body)
+            if image_url is None:
+                pass
+            else:
+                message_body = image_url
+                
+
 
         print(f"phone_number: {phone_number}")
         print(f"phone_number: {name}")
@@ -69,9 +75,6 @@ def get_media_url(media_id):
     if response.status_code == 200:
         json_data = response.json()
         print(json_data['url'])
-        # print(response['url'])
-    else:
         return None
-    response = response.json()
-    
-    print(response.text)
+    return url 
+   
