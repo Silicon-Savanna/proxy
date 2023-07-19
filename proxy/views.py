@@ -8,7 +8,12 @@ class ProxyView(APIView):
     def post(self, request):
         # convert request.data to json
         entry = json.loads(request.body)
-        message_type = entry["entry"][0]["changes"][0]["value"]["messages"][0]["type"]
+        try:
+            message_type = entry["entry"][0]["changes"][0]["value"]["messages"][0]["type"]
+        except KeyError:
+            # return method not allowed
+            return Response({"error": "Service not active"}, status=405)
+            
         name = entry["entry"][0]["changes"][0]["value"]["contacts"][0]["profile"][
             "name"
         ]
@@ -44,7 +49,7 @@ class ProxyView(APIView):
         response = requests.request("GET", url, headers=headers, data=payload)
         print(response.text)
 
-        return Response({"hello": "world"})
+        return Response({"status": "Success"}, status=200)
 
 
 def get_media_url(media_id):
