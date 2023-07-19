@@ -55,7 +55,7 @@ class ProxyView(APIView):
 def get_media_url(media_id):
     import requests
 
-    url = "https://graph.facebook.com/v17.0/6517166938366080"
+    url = f"https://graph.facebook.com/v17.0/{media_id}"
 
     payload = {}
     import os
