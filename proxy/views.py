@@ -9,11 +9,13 @@ class ProxyView(APIView):
         # convert request.data to json
         entry = json.loads(request.body)
         try:
-            message_type = entry["entry"][0]["changes"][0]["value"]["messages"][0]["type"]
+            message_type = entry["entry"][0]["changes"][0]["value"]["messages"][0][
+                "type"
+            ]
         except KeyError:
             # return method not allowed
             return Response({"error": "Service not active"}, status=405)
-            
+
         name = entry["entry"][0]["changes"][0]["value"]["contacts"][0]["profile"][
             "name"
         ]
@@ -32,8 +34,6 @@ class ProxyView(APIView):
                 pass
             else:
                 message_body = image_url
-                
-
 
         print(f"phone_number: {phone_number}")
         print(f"phone_number: {name}")
@@ -41,15 +41,17 @@ class ProxyView(APIView):
         print(f"message_type: {message_type}")
         url = "http://remit-loadb-ix52djo49no0-d833d409760e1a68.elb.us-east-1.amazonaws.com:5000/api/v1/index/"
 
-        payload = json.dumps({
-        "phone_number": phone_number,
-        "message_type": message_type,
-        "message": message_body,
-        "name": name
-        })
+        payload = json.dumps(
+            {
+                "phone_number": phone_number,
+                "message_type": message_type,
+                "message": message_body,
+                "name": name,
+            }
+        )
         headers = {
-        'Content-Type': 'application/json',
-        'Cookie': 'csrftoken=5tq6VqUIRj96bOOvCvTaWlAv1WVBvLSc'
+            "Content-Type": "application/json",
+            "Cookie": "csrftoken=5tq6VqUIRj96bOOvCvTaWlAv1WVBvLSc",
         }
 
         response = requests.request("GET", url, headers=headers, data=payload)
@@ -65,16 +67,25 @@ def get_media_url(media_id):
 
     payload = {}
     import os
-    ACCESS_TOKEN = os.environ['API_KEY']
-    headers = {
-        "Authorization": f"Bearer {ACCESS_TOKEN}"
-    }
+
+    ACCESS_TOKEN = os.environ["API_KEY"]
+    headers = {"Authorization": f"Bearer {ACCESS_TOKEN}"}
 
     response = requests.get(url, headers=headers, params=payload)
-    # response to json 
+    # response to json
     if response.status_code == 200:
         json_data = response.json()
-        print(json_data['url'])
+        print(json_data["url"])
+        payload = {}
+        headers = {
+            "Authorization": "Bearer EAAIZAebVGy5sBAALEHe09Hik81OPutNGM4xxNQZBf2OqEZCsPHfwlkTgJiRF2vQtzaRGOWneRUHd0Oekvt3lxyJ4ZA9ApgxddMSD1L5NCDU9EhbS9QGMcHLXP8h0MsChK6GUir4bXhSUxtdO1fFhB3gdPr1YLH02RZByRxacRedDRdGux7k9q"
+        }
+
+        # response = requests.request("GET", url, headers=headers, data=payload)
+        downloaded_image = requests.get(
+            json_data["url"], headers=headers, params=payload
+        )
+
+        print(downloaded_image.text)
         return None
-    return url 
-   
+    return url
