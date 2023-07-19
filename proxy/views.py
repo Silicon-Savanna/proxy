@@ -35,7 +35,7 @@ def get_media_url(media_id):
 
     payload = {}
     headers = {
-    'Authorization': 'Bearer EAAIZAebVGy5sBAGckoG1xOp7DZAgQ5uu227G5gtN8YFEhQA5gZCxGcLK1cvPVPgm2Aa6WYQZBCLMkNFvBZBATEeebih6cAfuhOXb8KzGpWW9tGoaYZAFH4m3VLe5XXuKHNXFZBlWJlvvn4JBKQTzyTb0hGUq3clZAUU22miJs0V4rVhlGZCsxyyZB0'
+    'Authorization': 'Bearer EAAIZAebVGy5sBALJtITuEQ3j4LrYaLftqlRBltsJFPv0lpvNuttoFZCZCgYCx6NfFN76CZA4ZBpHrsN377N3qZAkC0RwOHzRv2nJRJc4kRmdL2bdML3frTURgeE2AmbJvpXxDw2lYUptMz3ttYQT8wZBdQlmK6vTwGuTqiY1aStQ4HOuXLURU88'
     }
     
     response = requests.request("GET", url, headers=headers, data=payload)
