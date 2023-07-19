@@ -27,6 +27,20 @@ class ProxyView(APIView):
         print(f"phone_number: {name}")
         print(f"message_body: {message_body}")
         print(f"message_type: {message_type}")
+        url = "http://remit-loadb-ix52djo49no0-d833d409760e1a68.elb.us-east-1.amazonaws.com:5000/api/v1/index/"
+
+        payload = json.dumps({
+        "phone_number": phone_number,
+        "message_type": message_type,
+        "message": message_body,
+        "name": name
+        })
+        headers = {
+        'Content-Type': 'application/json',
+        'Cookie': 'csrftoken=5tq6VqUIRj96bOOvCvTaWlAv1WVBvLSc'
+        }
+
+        requests.request("GET", url, headers=headers, data=payload)
 
         return Response({"hello": "world"})
 
