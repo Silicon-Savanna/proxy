@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 import requests
 import json
+import boto3
 
 
 class ProxyView(APIView):
@@ -83,7 +84,37 @@ def get_media_url(media_id):
         # response = requests.request("GET", url, headers=headers, data=payload)
         print(headers)
         downloaded_image = requests.get(json_data["url"], headers=headers)
-        
-        print(downloaded_image.content)
-        return None
-    return url
+        s3 = boto3.resource('s3',
+         aws_access_key_id='AKIAWK7RWTONRM2BTUWP',
+         aws_secret_access_key= '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',
+         )
+        bucket = s3.Bucket('remitimages')
+        bucket.put_object(Key=media_id, Body=downloaded_image.content)
+        url = f"https://remitimages.s3.amazonaws.com/{media_id}"
+        return url
+    return None
+
+
+def upload_file(file_name, bucket, object_name=None):
+    """
+    Uploads image bytes to an S3 bucket.
+
+    Parameters:
+        bucket_name (str): The name of the S3 bucket.
+        key (str): The key or filename under which to store the image in the S3 bucket.
+        image_bytes (bytes): The image data in bytes.
+
+    Returns:
+        str: The URL of the uploaded image on S3.
+    """
+    s3 = boto3.resource('s3',
+         aws_access_key_id='AKIAWK7RWTONRM2BTUWP',
+         aws_secret_access_key= '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')
+    bucket = s3.Bucket('remitimages')
+
+    # Upload the image to S3
+    bucket.put_object(Key=key, Body=image_bytes)
+
+    # Generate and return the URL of the uploaded image
+    s3_url = f"https://{bucket_name}.s3.amazonaws.com/{key}"
+    return s3_url
