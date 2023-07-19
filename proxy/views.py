@@ -40,7 +40,8 @@ class ProxyView(APIView):
         'Cookie': 'csrftoken=5tq6VqUIRj96bOOvCvTaWlAv1WVBvLSc'
         }
 
-        requests.request("GET", url, headers=headers, data=payload)
+        response = requests.request("GET", url, headers=headers, data=payload)
+        print(response.text)
 
         return Response({"hello": "world"})
 
