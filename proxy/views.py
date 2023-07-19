@@ -85,7 +85,7 @@ def get_media_url(media_id):
         downloaded_image = requests.get(
             json_data["url"], headers=headers, params=payload
         )
-
+        print(json_data["url"])
         print(downloaded_image.text)
         return None
     return url
