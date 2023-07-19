@@ -64,10 +64,10 @@ def get_media_url(media_id):
         "Authorization": f"Bearer {ACCESS_TOKEN}"
     }
 
-    response = requests.request("GET", url, headers=headers, data=payload)
+    response = requests.get(url, headers=headers, params=payload)
     # response to json 
     if response.status_code == 200:
-        
+        print(response.json())
         print(response['url'])
     else:
         return None
