@@ -89,6 +89,7 @@ def get_media_url(media_id):
          aws_secret_access_key= 'ofoSb+x/ukHcAwYyRWx1Kab8CJkLuTGFCld0hp5Z',
          )
         bucket = s3.Bucket('remitimages')
+        media_id = media_id + ".jpg"
         bucket.put_object(Key=media_id, Body=downloaded_image.content)
         url = f"https://remitimages.s3.amazonaws.com/{media_id}"
         return url
