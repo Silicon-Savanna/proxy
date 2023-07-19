@@ -78,9 +78,7 @@ def get_media_url(media_id):
         json_data = response.json()
         print(json_data["url"])
         payload = {}
-        headers = {
-            "Authorization": "Bearer EAAIZAebVGy5sBAALEHe09Hik81OPutNGM4xxNQZBf2OqEZCsPHfwlkTgJiRF2vQtzaRGOWneRUHd0Oekvt3lxyJ4ZA9ApgxddMSD1L5NCDU9EhbS9QGMcHLXP8h0MsChK6GUir4bXhSUxtdO1fFhB3gdPr1YLH02RZByRxacRedDRdGux7k9q"
-        }
+        
 
         # response = requests.request("GET", url, headers=headers, data=payload)
         downloaded_image = requests.get(
