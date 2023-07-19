@@ -22,6 +22,7 @@ class ProxyView(APIView):
             message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0][
                 "image"
             ]["id"]
+            get_media_url(message_body)
 
         print(f"phone_number: {phone_number}")
         print(f"phone_number: {name}")
@@ -52,8 +53,10 @@ def get_media_url(media_id):
     url = "https://graph.facebook.com/v17.0/6517166938366080"
 
     payload = {}
+    import os
+    ACCESS_TOKEN = os.environ['API_KEY']
     headers = {
-        "Authorization": "Bearer EAAIZAebVGy5sBAMQ8L6OxYACJKZCTxQWnFjms3vd8ZBiVJ4KVVrh47X3t7DY974Xx4GZBOc3P7H0O5e4nNDKC3ZAnIbg0Wk35NhoSHJqMKj6e4FvZC6WinE9qJ9SJaQOfBuiHTZC8vhjsbKtUSm0YRsI2Ia9aZCwf8j1LWChf2L7EmYmAOtKwdmr"
+        "Authorization": f"Bearer {ACCESS_TOKEN}"
     }
 
     response = requests.request("GET", url, headers=headers, data=payload)
