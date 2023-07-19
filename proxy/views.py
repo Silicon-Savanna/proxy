@@ -9,7 +9,7 @@ class ProxyView(APIView):
         # convert request.data to json
         entry = json.loads(request.body)
         message_type = entry['entry'][0]['changes'][0]['value']['messages'][0]['type']
-        print(entry)
+        # print(entry)
         if message_type == 'text':
             name = entry['entry'][0]['changes'][0]['value']['contacts'][0]['profile']['name']
             phone_number = entry['entry'][0]['changes'][0]['value']['contacts'][0]['wa_id']
