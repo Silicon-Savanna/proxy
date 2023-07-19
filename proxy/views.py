@@ -32,14 +32,15 @@ class ProxyView(APIView):
         return Response({'hello': 'world'})
     
 def get_media_url(media_id):    
-    url = f"https://graph.facebook.com/v17.0/{media_id}"
+    import requests
+
+    url = "https://graph.facebook.com/v17.0/6517166938366080"
 
     payload = {}
     headers = {
-    'Authorization': 'Bearer EAAIZAebVGy5sBALJtITuEQ3j4LrYaLftqlRBltsJFPv0lpvNuttoFZCZCgYCx6NfFN76CZA4ZBpHrsN377N3qZAkC0RwOHzRv2nJRJc4kRmdL2bdML3frTURgeE2AmbJvpXxDw2lYUptMz3ttYQT8wZBdQlmK6vTwGuTqiY1aStQ4HOuXLURU88'
+    'Authorization': 'Bearer EAAIZAebVGy5sBAMQ8L6OxYACJKZCTxQWnFjms3vd8ZBiVJ4KVVrh47X3t7DY974Xx4GZBOc3P7H0O5e4nNDKC3ZAnIbg0Wk35NhoSHJqMKj6e4FvZC6WinE9qJ9SJaQOfBuiHTZC8vhjsbKtUSm0YRsI2Ia9aZCwf8j1LWChf2L7EmYmAOtKwdmr'
     }
-    
+
     response = requests.request("GET", url, headers=headers, data=payload)
 
-    print(response.content)
-    # print(json.loads(response))
+    print(response.text)
