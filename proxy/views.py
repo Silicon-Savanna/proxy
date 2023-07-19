@@ -23,7 +23,7 @@ class ProxyView(APIView):
         if message_type == 'image':
             
             image = entry['entry'][0]['changes'][0]['value']['messages'][0]['image']
-            # get_media_url(image['id'])
+            get_media_url(image['id'])
             print(image)
             print(image['id'])
         
