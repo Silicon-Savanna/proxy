@@ -22,6 +22,7 @@ AWS_ACCESS_KEY_ID = str(os.getenv("AWS_ACCESS_KEY_ID"))
 AWS_SECRET_ACCESS_KEY = str(os.getenv("AWS_SECRET_ACCESS_KEY"))
 AWS_STORAGE_BUCKET_NAME = str(os.getenv("AWS_STORAGE_BUCKET_NAME"))
 STORE_TO_S3 = str(os.getenv("STORE_TO_S3"))
+FACEBOOK_VERIFICATION_TOKEN = str(os.getenv("FACEBOOK_VERIFICATION_TOKEN"))
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

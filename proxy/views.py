@@ -7,6 +7,8 @@ from rest_framework.response import Response
 from . import settings
 import logging
 
+logger = logging.getLogger(__name__)
+
 class ProxyView(APIView):
     """
     View to handle the proxy requests and redirect traffic from WhatsApp Cloud API to Custom Server
@@ -50,7 +52,7 @@ class ProxyView(APIView):
 
         # Custom server URL where you want to redirect the traffic
         url = settings.REDIRECT_URL
-        logging.info(f"Phone number: {phone_number}, Message type: {message_type}, Message body: {message_body}")
+        logger.info(f"Phone number: {phone_number}, Message type: {message_type}, Message body: {message_body}")
         # Set the payload as it is on your custom server
         payload = json.dumps({
             "phone_number": phone_number,
@@ -71,6 +73,33 @@ class ProxyView(APIView):
                 return Response({"status": "Success"}, status=200)
             else:
                 return Response({"status": "Failed"}, status=400)
+
+class FacebookWebhookView(APIView):
+    def post(self, request):
+        logger.info("-------------- New Request POST --------------")
+        logger.info("Headers: %s", request.headers)
+        logger.info("Body: %s", request.data)
+        return Response({"message": "Thank you for the message"})
+
+    def get(self, request):
+        mode = request.GET.get("hub.mode")
+        token = request.GET.get("hub.verify_token")
+        challenge = request.GET.get("hub.challenge")
+
+        logger.info("-------------- New Request GET --------------")
+        logger.info("Headers: %s", request.headers)
+        logger.info("Body: %s", request.data)
+
+        if mode and token:
+            if mode == "subscribe" and token == "12345":
+                logger.info("WEBHOOK_VERIFIED")
+                return Response(challenge, status=200)
+            else:
+                logger.info("Responding with 403 Forbidden")
+                return Response(status=403)
+
+        logger.info("Replying Thank you.")
+        return Response({"message": "Thank you for the message"})
 
 def get_media_url(media_id: str) -> str:
     # Fetch the image URL using the Facebook Graph API
