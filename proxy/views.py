@@ -67,7 +67,7 @@ class ProxyView(APIView):
         }
 
         # Make the request to the custom server
-        with requests.get(url, headers=headers, data=payload) as response:
+        with requests.post(url, headers=headers, data=payload) as response:
             # Check the response status and return appropriate response
             if response.status_code == 200:
                 return Response({"status": "Success"}, status=200)
