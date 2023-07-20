@@ -6,8 +6,10 @@ import boto3
 
 
 class ProxyView(APIView):
-    def post(self, request):
-        # convert request.data to json
+    """
+    View to handle the proxy requests and redirect traffic from WhatsApp Cloud API to Custom Server
+    """
+    def post(self, request):     
         entry = json.loads(request.body)
         try:
             message_type = entry["entry"][0]["changes"][0]["value"]["messages"][0][
@@ -77,45 +79,24 @@ def get_media_url(media_id):
     # response to json
     if response.status_code == 200:
         json_data = response.json()
-        print(json_data["url"])
         payload = {}
-        
-
-        # response = requests.request("GET", url, headers=headers, data=payload)
         print(headers)
         downloaded_image = requests.get(json_data["url"], headers=headers)
-        s3 = boto3.resource('s3',
-         aws_access_key_id='AKIAWK7RWTONRM2BTUWP',
-         aws_secret_access_key= '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',
-         )
-        bucket = s3.Bucket('remitimages')
-        media_id = media_id + ".jpg"
-        bucket.put_object(Key=media_id, Body=downloaded_image.content)
-        url = f"https://remitimages.s3.amazonaws.com/{media_id}"
+        upload_to_s3(downloaded_image.content, media_id)
         return url
     return None
 
 
-def upload_file(file_name, bucket, object_name=None):
+def upload_to_s3(file_hash, media_id):
     """
-    Uploads image bytes to an S3 bucket.
-
-    Parameters:
-        bucket_name (str): The name of the S3 bucket.
-        key (str): The key or filename under which to store the image in the S3 bucket.
-        image_bytes (bytes): The image data in bytes.
-
-    Returns:
-        str: The URL of the uploaded image on S3.
+    Uploads the file to S3
     """
     s3 = boto3.resource('s3',
-         aws_access_key_id='AKIAWK7RWTONRM2BTUWP',
-         aws_secret_access_key= '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')
+        aws_access_key_id='AKIAWK7RWTONRM2BTUWP',
+        aws_secret_access_key= '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',
+        )
     bucket = s3.Bucket('remitimages')
-
-    # Upload the image to S3
-    bucket.put_object(Key=key, Body=image_bytes)
-
-    # Generate and return the URL of the uploaded image
-    s3_url = f"https://{bucket_name}.s3.amazonaws.com/{key}"
-    return s3_url
+    media_id = media_id + ".jpg"
+    bucket.put_object(Key=media_id, Body=file_hash)
+    url = f"https://remitimages.s3.amazonaws.com/{media_id}"
+    return url
