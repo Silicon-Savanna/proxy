@@ -5,6 +5,7 @@ import boto3
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import settings
+import logging
 
 class ProxyView(APIView):
     """
@@ -49,7 +50,7 @@ class ProxyView(APIView):
 
         # Custom server URL where you want to redirect the traffic
         url = settings.REDIRECT_URL
-
+        logging.info(f"Phone number: {phone_number}, Message type: {message_type}, Message body: {message_body}")
         # Set the payload as it is on your custom server
         payload = json.dumps({
             "phone_number": phone_number,
