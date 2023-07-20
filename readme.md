@@ -69,11 +69,11 @@ FACEBOOK_APP_SECRET=your_facebook_app_secret
 NGROK_AUTH_TOKEN=your_ngrok_auth_token
 ```
 
-2. Database Configuration
+4. Database Configuration
 
 By default, this project uses SQLite as the database. If you want to use a different database, update the `DATABASES` setting in `settings.py`.
 
-3. Run Migrations
+5. Run Migrations
 
 ```bash
 python manage.py migrate
@@ -133,7 +133,7 @@ For production deployment, it is recommended to use a production-ready web serve
 
 Create a view named `FacebookWebhookView` in your Django app to handle incoming POST and GET requests from the Facebook webhook. This view will log the request details and respond with appropriate messages based on the request type. You can use the `FacebookWebhookView` implementation provided in the previous code examples.
 
-### 5. Configure Ngrok with Facebook
+### 6. Configure Ngrok with Facebook
 
 1. Download the ngrok agent from the official website.
 
@@ -151,7 +151,7 @@ Replace `YOUR_NGROK_AUTH_TOKEN` with your actual ngrok auth token, and `myexampl
 
 5. Now, your Django app will be accessible securely via a public URL provided by ngrok, e.g., `https://myexample.ngrok.io`.
 
-### 6. Integrate Ngrok URL with Facebook
+### 7. Integrate Ngrok URL with Facebook
 
 To register a webhook on your Facebook account, follow these steps:
 
