@@ -13,8 +13,6 @@ Before getting started, make sure you have the following installed on your syste
 - Docker (optional, for Docker Compose setup)
 - Ngrok account and Ngrok agent (Ngrok Pro or Enterprise license required for Facebook validation)
 
-Certainly! Let's add the integration steps for Facebook webhooks to the README:
-
 ```markdown
 ## Setup and Configuration
 
