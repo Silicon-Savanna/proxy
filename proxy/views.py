@@ -15,7 +15,8 @@ class ProxyView(APIView):
     """
 
     def post(self, request):
-        entry = json.loads(request.body)
+        print(request.body.decode())
+        entry = json.loads(request.body.decode())
 
         # Get message type
         try:
@@ -119,7 +120,7 @@ def get_media_url(media_id: str) -> str:
                 """
                 Handle image storage in your own way
                 """
-                url = "https://...."  # Replace this with your custom URL
+                url = downloaded_image.content  # Replace this with your custom URL
             return url
 
     return ""
