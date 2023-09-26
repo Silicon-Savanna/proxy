@@ -120,7 +120,7 @@ def get_media_url(media_id: str) -> str:
                 """
                 Handle image storage in your own way
                 """
-                url = downloaded_image.content  # Replace this with your custom URL
+                url = json_data["url"]  # Replace this with your custom URL
             return url
 
     return ""
