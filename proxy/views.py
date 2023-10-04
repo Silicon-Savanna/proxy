@@ -45,7 +45,7 @@ class ProxyView(APIView):
                 message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["audio"]["id"]
                 media_url = get_media_url(message_body)
             elif message_type == "interactive":
-                print(entry["entry"][0]["changes"][0]["value"]["messages"][0]["interactive"]["button_reply"])
+                print(entry["entry"][0]["changes"][0]["value"]["messages"][0]["interactive"])
                 message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["interactive"]['button_reply']["id"]
                 media_url = None
             else:
