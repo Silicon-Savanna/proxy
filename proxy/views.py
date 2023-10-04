@@ -44,6 +44,9 @@ class ProxyView(APIView):
             elif message_type == "audio":
                 message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["audio"]["id"]
                 media_url = get_media_url(message_body)
+            elif message_type == "interactive":
+                message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["interactive"]['button_reply']["id"]
+                media_url = get_media_url(message_body)
             else:
                 return Response({"error": "Invalid message type"}, status=400)
 
