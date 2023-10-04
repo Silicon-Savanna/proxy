@@ -15,7 +15,7 @@ class ProxyView(APIView):
     """
 
     def post(self, request):
-        print(request.body.decode())
+        # print(request.body.decode())
         entry = json.loads(request.body.decode())
 
         # Get message type
@@ -64,6 +64,7 @@ class ProxyView(APIView):
             "message": message_body,
             "name": name,
         })
+        print(payload)
 
         headers = {
             "Content-Type": "application/json",
