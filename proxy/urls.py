@@ -20,6 +20,6 @@ from proxy.views import FacebookWebhookView, ProxyView
 
 urlpatterns = [
     path('', FacebookWebhookView.as_view(), name='facebook_webhook'),
-    path('webhooks', ProxyView.as_view()),
+    path('webhook', ProxyView.as_view()),
     path('admin/', admin.site.urls),
 ]

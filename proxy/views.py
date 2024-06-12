@@ -122,13 +122,11 @@ def get_media_url(media_id: str) -> str:
             json_data = response.json()
             downloaded_image = requests.get(json_data["url"], headers=headers)
 
-            if settings.STORE_TO_S3 == "True":
-                url = upload_to_s3(downloaded_image.content, media_id)
-            else:
-                """
-                Handle image storage in your own way
-                """
-                url = json_data["url"]  # Replace this with your custom URL
+            
+            """
+            Handle image storage in your own way
+            """
+            url = json_data["url"]  # Replace this with your custom URL
             return url
 
     return ""
