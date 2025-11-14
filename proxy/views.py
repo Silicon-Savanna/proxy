@@ -73,16 +73,20 @@ class ProxyView(APIView):
         url = settings.REDIRECT_URL
         logger.info(f"Phone number: {phone_number}, Message type: {message_type}, Message body: {message_body}")
         # Set the payload as it is on your custom server
-        payload = json.dumps({
+        # Build payload as a Python dict first
+        payload = {
             "phone_number": phone_number,
             "message_type": message_type,
             "message": message_body,
             "name": name,
-            
-        })
-        print(payload)
+        }
+        
+        # Attach order details if present
         if extra_data:
             payload["extra_data"] = extra_data
+        
+        # Convert to JSON only after adding everything
+        payload = json.dumps(payload)
 
         headers = {
             "Content-Type": "application/json",
