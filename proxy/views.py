@@ -45,6 +45,7 @@ class ProxyView(APIView):
                     "product_items": product_items
                 }
                 logger.info(f"Received order with {len(product_items)} items from {phone_number}")
+                media_url = None
             elif message_type == "document":
                 message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["document"]["id"]
                 media_url = get_media_url(message_body)
