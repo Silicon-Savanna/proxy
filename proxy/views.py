@@ -27,7 +27,7 @@ class ProxyView(APIView):
         # Extract relevant information from the message
         name = entry["entry"][0]["changes"][0]["value"]["contacts"][0]["profile"]["name"]
         phone_number = entry["entry"][0]["changes"][0]["value"]["contacts"][0]["wa_id"]
-
+        print(message_type, entry)
         # Extract the message body based on the message type
         if message_type == "text":
             message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["text"]["body"]
