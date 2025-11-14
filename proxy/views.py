@@ -35,6 +35,16 @@ class ProxyView(APIView):
             if message_type == "image":
                 message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["image"]["id"]
                 media_url = get_media_url(message_body)
+            elif message_type == "order":
+                order_data = entry["entry"][0]["changes"][0]["value"]["messages"][0]["order"]
+                catalog_id = order_data.get("catalog_id")
+                product_items = order_data.get("product_items", [])
+                message_body = "MoozaOrder##"
+                extra_data = {
+                    "catalog_id": catalog_id,
+                    "product_items": product_items
+                }
+                logger.info(f"Received order with {len(product_items)} items from {phone_number}")
             elif message_type == "document":
                 message_body = entry["entry"][0]["changes"][0]["value"]["messages"][0]["document"]["id"]
                 media_url = get_media_url(message_body)
