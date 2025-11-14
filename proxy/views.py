@@ -78,8 +78,11 @@ class ProxyView(APIView):
             "message_type": message_type,
             "message": message_body,
             "name": name,
+            
         })
         print(payload)
+        if extra_data:
+            payload["extra_data"] = extra_data
 
         headers = {
             "Content-Type": "application/json",
